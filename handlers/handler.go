@@ -125,10 +125,17 @@ func handleLeaderboardCommand(s *discordgo.Session, channelID string, year int) 
 }
 
 func replyWithInfo(s *discordgo.Session, channelID string) {
+
+	config, err := resources.Config()
+	if err != nil {
+		replyWithError(s, channelID, err)
+		return
+	}
+
 	s.ChannelMessageSend(
 		channelID,
 		"WTF is this? https://adventofcode.com/about\n\n"+
-			"Join our leaderboard at https://adventofcode.com/leaderboard/private with the code: `1391093-f2af42ac`\n"+
+			"Join our leaderboard at https://adventofcode.com/leaderboard/private with the code: `"+config.InviteCode+"`\n"+
 			"Type `/aoc <year>` (e.g. `/aoc 2023`) to see the standings",
 	)
 }
