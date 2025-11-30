@@ -98,8 +98,10 @@ func handleLeaderboardCommand(s *discordgo.Session, channelID string, year int) 
 		return
 	}
 
+	nextPuzzle := aoc.NextPuzzleUnlock(year)
+
 	svgPath := fmt.Sprintf("/out/%s.svg", currentTimeString)
-	err = svg.GenerateSvg(year, sortedMembers, svgPath)
+	err = svg.GenerateSvg(year, sortedMembers, nextPuzzle, svgPath)
 	if err != nil {
 		replyWithError(s, channelID, err)
 		return
